@@ -9,8 +9,14 @@ def tweets_index(request):
 
 
 def tweets_new(request):
-    context = {"form": TweetForm}
-    return render(request, "tweets_new.html", context)
+    if request.method == "POST":
+        form = TweetForm(request.POST)
+        if form.is_valid:
+            form.save()
+            return redirect("tweets:index")
+    else:
+        form = TweetForm
+    return render(request, "tweets_new.html", {"form": form})
 
 
 def __sanitize_image(tweets):
