@@ -4,10 +4,10 @@
 {% block main %}
 <div class="contents row">
   <div class="content_post" style="background-image: url({{tweet.image}});">
-    <div class="more">
-      <span><img src="{% static 'tweets/images/arrow_top.png' %}" alt="arrow_top"></span>
-      <ul class="more_list">
-        {% if user.is_authenticated %}
+    {% if user.is_authenticated %}
+      <div class="more">
+        <span><img src="{% static 'tweets/images/arrow_top.png' %}" alt="arrow_top"></span>
+        <ul class="more_list">
           <li>
             <a href="{% url 'tweets:edit' tweet.id %}">編集</a>
           </li>
@@ -17,9 +17,9 @@
               <button type="submit">削除</button>
             </form>
           </li>
-        {% endif %}
-      </ul>
-    </div>
+        </ul>
+      </div>
+    {% endif %}
     <p>{{ tweet.text }}</p>
     <span class="name">{{ tweet.name }}</span>
   </div>
