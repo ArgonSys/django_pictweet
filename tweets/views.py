@@ -1,3 +1,4 @@
+from django.http import HttpResponseForbidden
 from django.shortcuts import render, redirect, get_object_or_404
 from django.views.decorators.http import require_POST
 from django.contrib.auth.decorators import login_required
@@ -17,7 +18,9 @@ def tweets_new(request):
     if request.method == "POST":
         form = TweetForm(request.POST)
         if form.is_valid:
-            form.save()
+            tweet = form.save(commit=False)
+            tweet.created_by = request.user
+            tweet.save()
             return redirect("tweets:index")
     else:
         form = TweetForm
@@ -28,6 +31,9 @@ def tweets_new(request):
 @require_POST
 def tweets_delete(request, id):
     tweet = get_object_or_404(Tweet, pk=id)
+    if tweet.created_by_id != request.user.id:
+        return HttpResponseForbidden("このツイートの削除は許可されていません")
+
     tweet.delete()
     return redirect("tweets:index")
 
@@ -35,6 +41,9 @@ def tweets_delete(request, id):
 @login_required
 def tweets_edit(request, id):
     tweet = get_object_or_404(Tweet, pk=id)
+    if tweet.created_by_id != request.user.id:
+        return HttpResponseForbidden("このツイートの編集は許可されていません")
+
     if request.method == "POST":
         form = TweetForm(request.POST, instance=tweet)
         if form.is_valid:
