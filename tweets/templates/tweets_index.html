@@ -14,6 +14,9 @@
               <button type="submit">削除</button>
             </form>
           </li>
+          <li>
+            <a href="{% url 'tweets:edit' tweet.id %}">編集</a>
+          </li>
         </ul>
       </div>
       <p>{{ tweet.text }}</p>

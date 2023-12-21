@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+
+{% block main %}
+<div class="contents row">
+  <div class="container">
+    <h3>編集する</h3>
+    <form method="post">
+      {% csrf_token %}
+      {{ form.name }}
+      {{ form.image }}
+      {{ form.text }}
+      <input name="commit" type="submit" value="SEND">
+    </form>
+  </div>
+</div>
+{% endblock %}
