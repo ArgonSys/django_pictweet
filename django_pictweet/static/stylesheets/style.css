@@ -1057,3 +1057,54 @@ footer p {
 .search-form .search-btn {
   width: 10%;
 }
+
+header.header div.header__bar.row div.user_nav.grid-6 form.post {
+  display: inline;
+}
+
+header.header div.header__bar.row div.user_nav.grid-6 form.post button.post {
+  background: transparent;
+  text-decoration: none;
+
+  transition-property: all;
+  transition-duration: 0.2s;
+  transition-timing-function: linear;
+
+  padding: 8px 20px;
+  font-size: 14px;
+  border: 2px solid #57C3E9;
+  color: #57C3E9;
+  font-weight: bold;
+  text-align: center;
+  border-radius: 3px;
+  display: inline-block;
+
+  width: 120px;
+  margin-left: 10px;
+}
+
+header.header div.header__bar.row div.user_nav.grid-6 form.post button.post:hover {
+  border-color: #9bdbf2;
+  color: #9bdbf2;
+}
+
+div.content_post div.more ul.more_list li form button {
+  width: 100%;
+  background: transparent;
+  text-decoration: none;
+
+  transition-property: all;
+  transition-duration: 0.2s;
+  transition-timing-function: linear;
+
+  display: block;
+  padding: 5px;
+  border: none;
+
+  text-align: left;
+}
+
+div.content_post div.more ul.more_list li form button:hover {
+  background-color: #57C3E9;
+  color: #fff;
+}
