@@ -11,17 +11,20 @@
     <header class="header">
       <div class="header__bar row">
         <h1 class="grid-6"><a href="/">PicTweet</a></h1>
-        <div class="user_nav grid-6">
-          <a class="post" href="{% url 'users:signup' %}">新規登録</a>
-          <a class="post" href="{% url 'users:login' %}">ログイン</a>
-        </div>
-        <div class="user_nav grid-6 flex">
-          <a class="post" href="/tweets/new">投稿する</a>
-          <form action="{% url 'users:logout' %}" method="post">
-            {% csrf_token %}
-            <button class="post" >ログアウト</button>
-          </form>
-        </div>
+        {% if user.is_authenticated %}
+          <div class="user_nav grid-6 flex">
+            <a class="post" href="/tweets/new">投稿する</a>
+            <form action="{% url 'users:logout' %}" method="post">
+              {% csrf_token %}
+              <button class="post" >ログアウト</button>
+            </form>
+          </div>
+        {% else %}
+          <div class="user_nav grid-6">
+            <a class="post" href="{% url 'users:signup' %}">新規登録</a>
+            <a class="post" href="{% url 'users:login' %}">ログイン</a>
+          </div>
+        {% endif %}
       </div>
     </header>
     {% block main %}{% endblock %}
