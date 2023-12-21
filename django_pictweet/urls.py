@@ -24,4 +24,5 @@ urlpatterns = [
     path("", top, name="top"),
     path("admin/", admin.site.urls),
     path("tweets/", include("tweets.urls")),
+    path("users/", include("users.urls")),
 ]
