@@ -6,8 +6,9 @@ from tweets.forms import TweetForm
 
 
 def tweets_index(request):
-    context = {"tweets": __sanitize_image(Tweet.objects.all())}
-    return render(request, "tweets_index.html", context)
+    tweets = Tweet.objects.all()
+    tweets = __sanitize_image_all(tweets)
+    return render(request, "tweets_index.html", {"tweets": tweets})
 
 
 def tweets_new(request):
@@ -42,10 +43,18 @@ def tweets_edit(request, id):
 
 def tweets_show(request, id):
     tweet = get_object_or_404(Tweet, pk=id)
+    tweet = __sanitize_image(tweet)
     return render(request, "tweets_show.html", {"tweet": tweet})
 
 
-def __sanitize_image(tweets):
+###  general methods ###
+
+def __sanitize_image_all(tweets):
     for tweet in tweets:
-        tweet.image = tweet.image or ""
+        tweet = __sanitize_image(tweet)
     return tweets
+
+
+def __sanitize_image(tweet):
+    tweet.image = tweet.image or ""
+    return tweet
