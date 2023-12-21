@@ -7,15 +7,17 @@
     <div class="more">
       <span><img src="{% static 'tweets/images/arrow_top.png' %}" alt="arrow_top"></span>
       <ul class="more_list">
-        <li>
-          <a href="{% url 'tweets:edit' tweet.id %}">編集</a>
-        </li>
-        <li>
-          <form action="{% url 'tweets:delete' tweet.id %}" method="post">
-            {% csrf_token %}
-            <button type="submit">削除</button>
-          </form>
-        </li>
+        {% if user.is_authenticated %}
+          <li>
+            <a href="{% url 'tweets:edit' tweet.id %}">編集</a>
+          </li>
+          <li>
+            <form action="{% url 'tweets:delete' tweet.id %}" method="post">
+              {% csrf_token %}
+              <button type="submit">削除</button>
+            </form>
+          </li>
+        {% endif %}
       </ul>
     </div>
     <p>{{ tweet.text }}</p>
