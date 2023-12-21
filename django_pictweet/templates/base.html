@@ -12,11 +12,11 @@
       <div class="header__bar row">
         <h1 class="grid-6"><a href="/">PicTweet</a></h1>
         {% if user.is_authenticated %}
-          <div class="user_nav grid-6 flex">
+          <div class="user_nav grid-6">
             <a class="post" href="/tweets/new">投稿する</a>
-            <form action="{% url 'users:logout' %}" method="post">
+            <form action="{% url 'users:logout' %}" method="post" class="post">
               {% csrf_token %}
-              <button class="post" >ログアウト</button>
+              <button class="post">ログアウト</button>
             </form>
           </div>
         {% else %}
