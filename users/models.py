@@ -5,6 +5,14 @@ from django.utils import timezone
 from django.db import models
 
 class User(AbstractBaseUser, PermissionsMixin):
+
+    id = models.BigIntegerField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+    )
+
     username_validator = ASCIIUsernameValidator()
     username = models.CharField(
         "nickname",
