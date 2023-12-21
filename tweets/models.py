@@ -1,6 +1,5 @@
 from django.db import models
 from django.conf import settings
-from users.models import User
 
 class Tweet(models.Model):
     name = models.CharField("名前", max_length=128)
