@@ -1,5 +1,5 @@
 from django.urls import path
-from tweets.views import tweets_index, tweets_new, tweets_delete, tweets_edit
+from tweets.views import tweets_index, tweets_new, tweets_delete, tweets_edit, tweets_show
 
 
 app_name = "tweets"
@@ -9,4 +9,5 @@ urlpatterns = [
     path("new", tweets_new, name="new"),
     path("<int:id>/delete", tweets_delete, name="delete"),
     path("<int:id>/edit", tweets_edit, name="edit"),
+    path("<int:id>", tweets_show, name="show"),
 ]

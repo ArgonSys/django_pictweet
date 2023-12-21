@@ -40,6 +40,9 @@ def tweets_edit(request, id):
     return render(request, "tweets_edit.html", {"form": form})
 
 
+def tweets_show(request, id):
+    tweet = get_object_or_404(Tweet, pk=id)
+    return render(request, "tweets_show.html", {"tweet": tweet})
 
 
 def __sanitize_image(tweets):
