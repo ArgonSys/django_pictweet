@@ -7,14 +7,14 @@ from django.db import models
 class User(AbstractBaseUser, PermissionsMixin):
     username_validator = ASCIIUsernameValidator()
     username = models.CharField(
-        "ユーザー名",
+        "nickname",
         max_length=150,
         unique=False,
         validators=[username_validator],
     )
 
     email = models.EmailField(
-        "メールアドレス",
+        "email",
         unique=True,
         error_messages={
             "unique": "Email address has already token",
