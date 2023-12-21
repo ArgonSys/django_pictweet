@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.views.decorators.http import require_POST
+from django.contrib.auth.decorators import login_required
 
 from tweets.models import Tweet
 from tweets.forms import TweetForm
@@ -11,6 +12,7 @@ def tweets_index(request):
     return render(request, "tweets_index.html", {"tweets": tweets})
 
 
+@login_required
 def tweets_new(request):
     if request.method == "POST":
         form = TweetForm(request.POST)
@@ -22,6 +24,7 @@ def tweets_new(request):
     return render(request, "tweets_new.html", {"form": form})
 
 
+@login_required
 @require_POST
 def tweets_delete(request, id):
     tweet = get_object_or_404(Tweet, pk=id)
@@ -29,6 +32,7 @@ def tweets_delete(request, id):
     return redirect("tweets:index")
 
 
+@login_required
 def tweets_edit(request, id):
     tweet = get_object_or_404(Tweet, pk=id)
     if request.method == "POST":
