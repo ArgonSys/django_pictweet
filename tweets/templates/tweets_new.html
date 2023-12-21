@@ -4,7 +4,7 @@
 <div class="contents row">
   <div class="container">
     <h3>投稿する</h3>
-    <form action="{% url 'tweets:new' %}" method="post">
+    <form method="post">
       {% csrf_token %}
       {{ form.name }}
       {{ form.image }}
