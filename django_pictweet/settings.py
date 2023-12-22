@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     "tweets.apps.TweetsConfig",
     "users.apps.UsersConfig",
+    "comments.apps.CommentsConfig",
 ]
 
 MIDDLEWARE = [
