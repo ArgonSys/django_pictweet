@@ -34,6 +34,7 @@ class UsersView(View):
 
     def get(self, request, *args, **kwargs):
         user = User.objects.get(pk=kwargs["id"])
-        tweets = user.tweet_set.all()
-        tweets = sanitize_image_all(tweets)
-        return render(request, self.template_name, {"user": user, "tweets": tweets})
+        tweets = sanitize_image_all(user.tweet_set.all())
+        template = UsersView.template_name
+        context = {"page_user": user, "tweets": tweets, "template": template}
+        return render(request, self.template_name, context)

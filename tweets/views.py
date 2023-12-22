@@ -9,9 +9,10 @@ from .utils import sanitize_image, sanitize_image_all
 
 
 def tweets_index(request):
-    tweets = Tweet.objects.all()
-    tweets = sanitize_image_all(tweets)
-    return render(request, "tweets/index.html", {"tweets": tweets})
+    tweets = sanitize_image_all(Tweet.objects.all())
+    template = "tweets/index.html"
+    context = {"tweets": tweets, "template": template}
+    return render(request, "tweets/index.html", context)
 
 
 @login_required
@@ -56,6 +57,7 @@ def tweets_edit(request, id):
 
 
 def tweets_show(request, id):
-    tweet = get_object_or_404(Tweet, pk=id)
-    tweet = sanitize_image(tweet)
-    return render(request, "tweets/show.html", {"tweet": tweet})
+    tweet = sanitize_image(get_object_or_404(Tweet, pk=id))
+    template = "tweets/show.html"
+    context = {"tweet": tweet, "template": template}
+    return render(request, "tweets/show.html", context)
