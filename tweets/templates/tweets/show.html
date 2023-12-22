@@ -5,4 +5,24 @@
 <div class="contents row">
   {% include "tweets/tweet.html" %}
 </div>
+<div class="container">
+  {% if user.is_authenticated %}
+  <form method="post">
+    {% csrf_token %}
+    {{form.text}}
+    <input type="submit" value="SEND">
+  </form>
+  {% else %}
+    <strong><p>※※※ コメントの投稿には新規登録/ログインが必要です ※※※</p></strong>
+  {% endif %}
+  <div class="comments">
+    <h4>＜コメント一覧＞</h4>
+    {% for comment in comments %}
+      <p>
+        <strong><a href="{% url 'users:show' comment.created_by_id %}">{{ comment.created_by.username }}</a>：</strong>
+        {{comment.text}}
+      </p>
+    {% endfor %}
+  </div>
+</div>
 {% endblock %}
