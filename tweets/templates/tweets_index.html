@@ -4,29 +4,7 @@
 {% block main %}
 <div class="contents row">
   {% for tweet in tweets %}
-    <div class="content_post" style="background-image: url({{ tweet.image }});">
-      <div class="more">
-        <span><img src="{% static 'tweets/images/arrow_top.png' %}" alt="arrow_top"></span>
-        <ul class="more_list">
-          <li>
-            <a href="{% url 'tweets:show' tweet.id %}">詳細</a>
-          </li>
-          {% if user.is_authenticated and user.id == tweet.created_by_id %}
-            <li>
-              <a href="{% url 'tweets:edit' tweet.id %}">編集</a>
-            </li>
-            <li>
-              <form action="{% url 'tweets:delete' tweet.id %}" method="post">
-                {% csrf_token %}
-                <button type="submit">削除</button>
-              </form>
-            </li>
-          {% endif %}
-        </ul>
-      </div>
-      <p>{{ tweet.text }}</p>
-      <span class="name">{{ tweet.name }}</span>
-    </div>
+    {% include "tweet.html" %}
   {% endfor %}
 </div>
 {% endblock %}
