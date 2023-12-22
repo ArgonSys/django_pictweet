@@ -4,7 +4,7 @@ from tweets.models import Tweet
 
 
 class Comment(models.Model):
-    text = models.CharField(max_length=128)
+    text = models.TextField("コメント")
     created_by = models.ForeignKey(
         User,
         verbose_name="投稿者",
