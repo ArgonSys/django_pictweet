@@ -7,6 +7,8 @@ from .models import Tweet
 from .forms import TweetForm
 from .utils import sanitize_image, sanitize_image_all
 
+from comments.forms import CommentForm
+
 
 def tweets_index(request):
     tweets = sanitize_image_all(Tweet.objects.prefetch_related("created_by"))
@@ -58,6 +60,17 @@ def tweets_edit(request, id):
 
 def tweets_show(request, id):
     tweet = sanitize_image(get_object_or_404(Tweet, pk=id))
+    if request.method == "POST":
+        form = CommentForm(request.POST)
+        if form.is_valid:
+            comment = form.save(commit=False)
+            comment.created_by = request.user
+            comment.created_in = tweet
+            comment.save()
+            return redirect("tweets:show", pk=id)
+    else:
+        form = CommentForm
     template = "tweets/show.html"
-    context = {"tweet": tweet, "template": template}
+    comments = tweet.comment_set.prefetch_related("created_by")
+    context = {"tweet": tweet, "template": template, "comments": comments, "form": form}
     return render(request, "tweets/show.html", context)
