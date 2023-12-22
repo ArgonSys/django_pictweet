@@ -3,7 +3,7 @@
 
 {% block main %}
 <div class="contents row">
-  <p>{{ user.username }}さんの投稿一覧</p>
+  <p>{{ page_user.username }}さんの投稿一覧</p>
   {% for tweet in tweets %}
     {% include "tweets/tweet.html" %}
   {% endfor %}
