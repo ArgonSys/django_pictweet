@@ -2,6 +2,11 @@
 {% load static %}
 
 {% block main %}
+<form method="post" class="search-form">
+  {% csrf_token %}
+  {{ form.keyword }}
+  <input type="submit" value="検索" class="search-btn">
+</form>
 <div class="contents row">
   {% for tweet in tweets %}
     {% include "tweets/tweet.html" %}
