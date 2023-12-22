@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+
+
+{% block main %}
+<div class="content row">
+  <p>{{ user.username }}さんの投稿一覧</p>
+  {% for tweet in tweets %}
+    <div class="content_post" style="background-image: url({{ tweet.image }});">
+      <p>{{ tweet.text }}</p>
+      <span class="name">{{ tweet.name }}</span>
+    </div>
+  {% endfor %}
+</div>
+{% endblock %}
