@@ -3,13 +3,14 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.views.decorators.http import require_POST
 from django.contrib.auth.decorators import login_required
 
-from tweets.models import Tweet
-from tweets.forms import TweetForm
+from .models import Tweet
+from .forms import TweetForm
+from .utils import sanitize_image, sanitize_image_all
 
 
 def tweets_index(request):
     tweets = Tweet.objects.all()
-    tweets = __sanitize_image_all(tweets)
+    tweets = sanitize_image_all(tweets)
     return render(request, "tweets_index.html", {"tweets": tweets})
 
 
@@ -56,18 +57,5 @@ def tweets_edit(request, id):
 
 def tweets_show(request, id):
     tweet = get_object_or_404(Tweet, pk=id)
-    tweet = __sanitize_image(tweet)
+    tweet = sanitize_image(tweet)
     return render(request, "tweets_show.html", {"tweet": tweet})
-
-
-###  general methods ###
-
-def __sanitize_image_all(tweets):
-    for tweet in tweets:
-        tweet = __sanitize_image(tweet)
-    return tweets
-
-
-def __sanitize_image(tweet):
-    tweet.image = tweet.image or ""
-    return tweet
