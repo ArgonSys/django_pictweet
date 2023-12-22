@@ -3,8 +3,6 @@
 
 {% block main %}
 <div class="contents row">
-  {% for tweet in tweets %}
-    {% include "tweet.html" %}
-  {% endfor %}
+  {% include "tweets/tweet.html" %}
 </div>
 {% endblock %}

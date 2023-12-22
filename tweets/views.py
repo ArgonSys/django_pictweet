@@ -11,7 +11,7 @@ from .utils import sanitize_image, sanitize_image_all
 def tweets_index(request):
     tweets = Tweet.objects.all()
     tweets = sanitize_image_all(tweets)
-    return render(request, "tweets_index.html", {"tweets": tweets})
+    return render(request, "tweets/index.html", {"tweets": tweets})
 
 
 @login_required
@@ -25,7 +25,7 @@ def tweets_new(request):
             return redirect("tweets:index")
     else:
         form = TweetForm
-    return render(request, "tweets_new.html", {"form": form})
+    return render(request, "tweets/new.html", {"form": form})
 
 
 @login_required
@@ -52,10 +52,10 @@ def tweets_edit(request, id):
             return redirect("tweets:index")
     else:
         form = TweetForm(instance=tweet)
-    return render(request, "tweets_edit.html", {"form": form})
+    return render(request, "tweets/edit.html", {"form": form})
 
 
 def tweets_show(request, id):
     tweet = get_object_or_404(Tweet, pk=id)
     tweet = sanitize_image(tweet)
-    return render(request, "tweets_show.html", {"tweet": tweet})
+    return render(request, "tweets/show.html", {"tweet": tweet})

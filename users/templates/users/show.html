@@ -5,7 +5,7 @@
 <div class="contents row">
   <p>{{ user.username }}さんの投稿一覧</p>
   {% for tweet in tweets %}
-    {% include "tweet.html" %}
+    {% include "tweets/tweet.html" %}
   {% endfor %}
 </div>
 {% endblock %}
