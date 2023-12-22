@@ -4,7 +4,7 @@ from django.views.decorators.http import require_POST
 from django.contrib.auth.decorators import login_required
 
 from .models import Tweet
-from .forms import TweetForm
+from .forms import TweetForm, SearchForm
 from .utils import sanitize_image, sanitize_image_all
 
 from comments.forms import CommentForm
@@ -12,8 +12,15 @@ from comments.forms import CommentForm
 
 def tweets_index(request):
     tweets = sanitize_image_all(Tweet.objects.prefetch_related("created_by"))
+    form = SearchForm
+    if request.method == "POST":
+        keyword = request.POST["keyword"]
+        print(f"keyword: {keyword}")
+        if keyword:
+            tweets = tweets.filter(text__icontains=keyword)
+            form = SearchForm(request.POST)
     template = "tweets/index.html"
-    context = {"tweets": tweets, "template": template}
+    context = {"tweets": tweets, "template": template, "form": form}
     return render(request, "tweets/index.html", context)
 
 
