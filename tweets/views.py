@@ -9,7 +9,7 @@ from .utils import sanitize_image, sanitize_image_all
 
 
 def tweets_index(request):
-    tweets = sanitize_image_all(Tweet.objects.all())
+    tweets = sanitize_image_all(Tweet.objects.prefetch_related("created_by"))
     template = "tweets/index.html"
     context = {"tweets": tweets, "template": template}
     return render(request, "tweets/index.html", context)
